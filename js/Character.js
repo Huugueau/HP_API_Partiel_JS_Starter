@@ -13,6 +13,8 @@ export default class Character {
         this.house = new House(data.house);
         this.image = data.image;
         this.actor = data.actor;
+        this.alive = data.alive;
+        this.age = 2025 - data.yearOfBirth;
     }
 
     displayCard() {
@@ -30,6 +32,8 @@ export default class Character {
                   `<figcaption>${this.name}</figcaption>` +
                 "</figure>" +
             "</div>";
+
+        section.dataset.alive = this.alive;
 
         section.addEventListener("click", () => {
             window.open(`./details.html?id=${this.id}`, "_blank");
@@ -59,6 +63,9 @@ export default class Character {
 
         const logo = document.querySelector('.house__perso img');
         logo.src = this.house.getImage();
+
+        const title = document.querySelector('.title');
+        title.innerHTML = `${this.name} - Harry Potter`;
     }
 
 }
