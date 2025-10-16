@@ -14,7 +14,7 @@ export default class Character {
         this.image = data.image;
         this.actor = data.actor;
         this.alive = data.alive;
-        this.age = 2025 - data.yearOfBirth;
+        this.age = 2025 - (data.yearOfBirth ? data.yearOfBirth : 2026);
     }
 
     displayCard() {
@@ -34,6 +34,7 @@ export default class Character {
             "</div>";
 
         section.dataset.alive = this.alive;
+        section.dataset.age = this.age;
 
         section.addEventListener("click", () => {
             window.open(`./details.html?id=${this.id}`, "_blank");

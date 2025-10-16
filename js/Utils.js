@@ -78,13 +78,23 @@ const filterCharacters = (selectedFilters) => {
         newSections = newSections.filter(section => section.dataset.alive != "true");
         console.log(newSections);
     }
+    let sorted = new Array();
     if (selectedFilters.has('ageAscending')) {
-        sections.sort((c1, c2) => Number(c1.dataset.age) - Number(c2.dataset.age));
+        newSections = newSections.filter(section => section.dataset.age > 0);
+        sorted = Array.from(sections).sort((c1, c2) => Number(c1.dataset.age) - Number(c2.dataset.age));
+        
     } else if (selectedFilters.has('ageDescending')) {
-        sections.sort((c1, c2) => Number(c2.dataset.age) - Number(c1.dataset.age));
+        newSections = newSections.filter(section => section.dataset.age > 0); 
+        sorted = Array.from(sections).sort((c1, c2) => Number(c2.dataset.age) - Number(c1.dataset.age));
     }
-
-
+    console.log(sorted);
+    document.querySelector('.characters').innerHTML = "";
+    sorted.forEach(s => {
+        document.querySelector('.characters').appendChild(s);
+    })
+    
     sections.forEach(section => newSections.includes(section) ? section.style.display = "" : section.style.display = "none");
+
+
 
 };
