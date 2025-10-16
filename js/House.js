@@ -1,3 +1,7 @@
+import { getCharacters } from "./Utils.js";
+import Character from "./Character.js";
+
+
 export default class House {
     
     constructor(name) {
@@ -8,6 +12,10 @@ export default class House {
         return this.name;
     }
 
+    getImage() {
+        return `./images/logo/${this.getName()}.png`;
+    }
+
     displayHouse() {
         
         let section = document.createElement('section');
@@ -15,8 +23,15 @@ export default class House {
 
         section.innerHTML += `<img src="./images/logo/${this.getName()}.png" alt="" srcset="" />`
 
+        section.addEventListener('click', () => this.filterByHouse())
 
         document.querySelector('.houses').appendChild(section);
+    }
+
+    async filterByHouse() {
+        document.querySelector('.characters').innerHTML = "";
+        const characters = await getCharacters(this.getName());
+        characters.forEach(c => new Character(c).displayCard());
     }
 
 }
